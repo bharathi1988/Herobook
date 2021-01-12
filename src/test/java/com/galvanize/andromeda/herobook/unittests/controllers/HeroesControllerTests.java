@@ -28,16 +28,23 @@ public class HeroesControllerTests {
 
     @Test
     public void GetHeroesTest() throws Exception {
-        Hero hero = new Hero();
-        hero.setHeroName("Super Man");
         List<Hero> heroes = new ArrayList<>();
-        heroes.add(hero);
+
+        Hero superMan = new Hero();
+        superMan.setHeroName("Super Man");
+        heroes.add(superMan);
+
+        Hero spiderMan = new Hero();
+        spiderMan.setHeroName("Spider Man");
+        heroes.add(spiderMan);
         when(mockHeroesService.findAll()).thenReturn(heroes);
         mockMvc.perform(get("/herobooks/heroes"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").exists())
-                .andExpect(jsonPath("$.length()").value(1))
-                .andExpect(jsonPath("$.[0].heroName").value("Super Man"));
+                .andExpect(jsonPath("$.length()").value(2))
+                .andExpect(jsonPath("$.[0].heroName").value("Super Man"))
+                .andExpect(jsonPath("$.[1].heroName").value("Spider Man"));
+
     }
 
 }
