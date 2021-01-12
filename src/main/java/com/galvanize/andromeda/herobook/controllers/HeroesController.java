@@ -3,8 +3,8 @@ package com.galvanize.andromeda.herobook.controllers;
 import com.galvanize.andromeda.herobook.models.Hero;
 import com.galvanize.andromeda.herobook.services.HeroesService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +18,12 @@ public class HeroesController {
     @GetMapping("/herobooks/heroes")
     public List<Hero> getAllHeroes() {
         return heroesService.findAll();
+    }
+
+    @PostMapping("/herobooks/heroes")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Hero addSuperHero(@RequestBody Hero hero){
+        return heroesService.save(hero);
     }
 
 }
