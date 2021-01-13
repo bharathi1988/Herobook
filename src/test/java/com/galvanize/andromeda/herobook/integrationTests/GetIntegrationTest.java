@@ -1,5 +1,6 @@
 package com.galvanize.andromeda.herobook.integrationTests;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.galvanize.andromeda.herobook.models.Hero;
 import org.junit.jupiter.api.Test;
@@ -8,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -17,6 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureDataJpa
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class GetIntegrationTest {
 
     @Autowired
@@ -54,6 +57,26 @@ public class GetIntegrationTest {
                 .andExpect(jsonPath("$.[1].id").exists())
                 .andExpect(jsonPath("$.[1].heroName").value(spiderMan.getHeroName()))
                 ;
+    }
+
+    @Test
+    public void getHeroByNameTest() throws Exception {
+        Hero superMan = new Hero();
+        superMan.setHeroName("Super Man");
+
+        mockMvc.perform(post("/herobooks/heroes")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(superMan))
+        )
+                .andExpect(status().isCreated());
+
+        mockMvc.perform(get("/herobooks/heroes/Super Man"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").exists())
+                .andExpect(jsonPath("$.id").exists())
+                .andExpect(jsonPath("$.heroName").value(superMan.getHeroName()))
+        ;
+
     }
 
 }

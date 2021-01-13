@@ -5,11 +5,11 @@ import com.galvanize.andromeda.herobook.repository.HeroesRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class HeroesService {
 
-    //@Autowired
     private final HeroesRepository heroesRepository;
 
     public HeroesService(HeroesRepository heroesRepository) {
@@ -24,7 +24,7 @@ public class HeroesService {
         return heroesRepository.save(hero);
     }
 
-    public Hero findHeroByName(String heroName) {
-        return new Hero();
+    public Optional<Hero> findHeroByName(String heroName) {
+        return heroesRepository.findByHeroName(heroName);
     }
 }

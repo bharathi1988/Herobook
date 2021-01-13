@@ -9,8 +9,10 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 public class HeroesServiceTests {
@@ -56,6 +58,34 @@ public class HeroesServiceTests {
         assertEquals(expectedSuperMan, result);
 
         verify(mockHeroesRepository).save(superMan);
+
+    }
+
+    @Test
+    public void findHeroByNameTest() {
+        Hero superMan = new Hero();
+        superMan.setHeroName("Super Man");
+
+        Hero expectedSuperMan = new Hero();
+        expectedSuperMan.setId("AAAA");
+        expectedSuperMan.setHeroName("Super Man");
+
+        Optional<Hero> optionalHero = Optional.of(expectedSuperMan);
+
+        when(mockHeroesRepository.findByHeroName("Super Man")).thenReturn(optionalHero);
+
+        Optional<Hero> result = heroesService.findHeroByName("Super Man");
+        assertEquals(expectedSuperMan, result.get());
+
+        Optional<Hero> nullOptionalHero = Optional.ofNullable(null);
+
+        assertTrue(!nullOptionalHero.isPresent());
+
+        verify(mockHeroesRepository).findByHeroName("Super Man");
+
+
+
+
 
     }
 

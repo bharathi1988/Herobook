@@ -1,14 +1,12 @@
 package com.galvanize.andromeda.herobook.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.PrePersist;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
 public class Hero {
 
+    @Column(name="HeroName")
     private String heroName;
 
     @Id

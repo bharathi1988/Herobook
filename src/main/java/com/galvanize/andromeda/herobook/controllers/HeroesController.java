@@ -22,7 +22,7 @@ public class HeroesController {
 
     @GetMapping("/herobooks/heroes/{heroName}")
     public Hero getHeroByName(@PathVariable String heroName) {
-        return heroesService.findHeroByName(heroName);
+        return heroesService.findHeroByName(heroName).get();
     }
 
     @PostMapping("/herobooks/heroes")

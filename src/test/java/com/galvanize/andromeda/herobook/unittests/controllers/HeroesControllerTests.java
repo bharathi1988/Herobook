@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
@@ -89,8 +90,10 @@ public class HeroesControllerTests {
         Hero expectedSuperMan = new Hero();
         expectedSuperMan.setHeroName("Super Man");
 
+        Optional<Hero> optionalHero = Optional.of(expectedSuperMan);
+
         when(mockHeroesService.findHeroByName("Super Man")).
-                thenReturn(expectedSuperMan);
+                thenReturn(optionalHero);
 
         mockMvc.perform(get("/herobooks/heroes/Super Man"))
                 .andExpect(status().isOk())
