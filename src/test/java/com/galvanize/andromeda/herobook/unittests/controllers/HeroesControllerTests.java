@@ -103,4 +103,20 @@ public class HeroesControllerTests {
         verify(mockHeroesService).findHeroByName("Super Man");
     }
 
+    @Test
+    public void getHeroByIncorrectNameTest() throws Exception {
+
+        Optional<Hero> optionalHero = Optional.ofNullable(null);
+
+        when(mockHeroesService.findHeroByName("Spider Man")).
+                thenReturn(optionalHero);
+
+        mockMvc.perform(get("/herobooks/heroes/Spider Man"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value("Hero does not exist"));
+
+        verify(mockHeroesService).findHeroByName("Spider Man");
+
+    }
+
 }
