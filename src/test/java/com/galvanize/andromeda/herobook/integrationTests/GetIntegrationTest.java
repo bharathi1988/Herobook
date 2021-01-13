@@ -30,18 +30,29 @@ public class GetIntegrationTest {
         Hero superMan = new Hero();
         superMan.setHeroName("Super Man");
 
+        Hero spiderMan = new Hero();
+        spiderMan.setHeroName("Spider Man");
+
         mockMvc.perform(post("/herobooks/heroes")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(superMan))
                )
             .andExpect(status().isCreated());
 
+        mockMvc.perform(post("/herobooks/heroes")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(spiderMan))
+        )
+                .andExpect(status().isCreated());
+
         mockMvc.perform(get("/herobooks/heroes"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").exists())
-                .andExpect(jsonPath("$.length()").value(1))
+                .andExpect(jsonPath("$.length()").value(2))
                 .andExpect(jsonPath("$.[0].id").exists())
                 .andExpect(jsonPath("$.[0].heroName").value(superMan.getHeroName()))
+                .andExpect(jsonPath("$.[1].id").exists())
+                .andExpect(jsonPath("$.[1].heroName").value(spiderMan.getHeroName()))
                 ;
     }
 

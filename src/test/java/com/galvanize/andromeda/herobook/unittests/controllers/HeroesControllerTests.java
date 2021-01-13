@@ -84,4 +84,16 @@ public class HeroesControllerTests {
         verify(mockHeroesService).save(any());
     }
 
+    @Test
+    public void getHeroByNameTest() throws Exception {
+        Hero expectedSuperMan = new Hero();
+        expectedSuperMan.setHeroName("Super Man");
+
+        mockMvc.perform(get("/herobooks/heroes/Super Man"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").exists())
+                .andExpect(jsonPath("$.heroName").value(superMan.getHeroName()));
+
+    }
+
 }

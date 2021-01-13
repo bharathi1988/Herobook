@@ -20,6 +20,13 @@ public class HeroesController {
         return heroesService.findAll();
     }
 
+    @GetMapping("/herobooks/heroes/{heroName}")
+    public Hero getHeroByName(@PathVariable String heroName) {
+        Hero superman = new Hero();
+        superman.setHeroName("Super Man");
+        return superman;
+    }
+
     @PostMapping("/herobooks/heroes")
     @ResponseStatus(HttpStatus.CREATED)
     public Hero addSuperHero(@RequestBody Hero hero){
