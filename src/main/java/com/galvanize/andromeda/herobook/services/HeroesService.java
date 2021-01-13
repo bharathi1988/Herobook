@@ -21,6 +21,6 @@ public class HeroesService {
     }
 
     public Hero save(Hero hero){
-        return hero;
+        return heroesRepository.save(hero);
     }
 }

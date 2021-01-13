@@ -41,4 +41,22 @@ public class HeroesServiceTests {
 
     }
 
+    @Test
+    public void saveTest() {
+        Hero superMan = new Hero();
+        superMan.setHeroName("Super Man");
+
+        Hero expectedSuperMan = new Hero();
+        expectedSuperMan.setId("AAAA");
+        expectedSuperMan.setHeroName("Super Man");
+
+        when(mockHeroesRepository.save(superMan)).thenReturn(expectedSuperMan);
+
+        Hero result = heroesService.save(superMan);
+        assertEquals(expectedSuperMan, result);
+
+        verify(mockHeroesRepository).save(superMan);
+
+    }
+
 }
