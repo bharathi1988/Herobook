@@ -23,4 +23,8 @@ public class HeroesService {
     public Hero save(Hero hero){
         return heroesRepository.save(hero);
     }
+
+    public Hero findHeroByName(String heroName) {
+        return new Hero();
+    }
 }

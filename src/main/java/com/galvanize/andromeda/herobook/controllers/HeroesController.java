@@ -22,9 +22,7 @@ public class HeroesController {
 
     @GetMapping("/herobooks/heroes/{heroName}")
     public Hero getHeroByName(@PathVariable String heroName) {
-        Hero superman = new Hero();
-        superman.setHeroName("Super Man");
-        return superman;
+        return heroesService.findHeroByName(heroName);
     }
 
     @PostMapping("/herobooks/heroes")

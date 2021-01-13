@@ -89,11 +89,15 @@ public class HeroesControllerTests {
         Hero expectedSuperMan = new Hero();
         expectedSuperMan.setHeroName("Super Man");
 
+        when(mockHeroesService.findHeroByName("Super Man")).
+                thenReturn(expectedSuperMan);
+
         mockMvc.perform(get("/herobooks/heroes/Super Man"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").exists())
                 .andExpect(jsonPath("$.heroName").value(superMan.getHeroName()));
 
+        verify(mockHeroesService).findHeroByName("Super Man");
     }
 
 }
