@@ -3,6 +3,7 @@ package com.galvanize.andromeda.herobook.unittests.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.galvanize.andromeda.herobook.models.Hero;
 import com.galvanize.andromeda.herobook.services.HeroesService;
+import com.galvanize.andromeda.herobook.services.VillainsService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,9 @@ public class HeroesControllerTests {
 
     @MockBean
     HeroesService mockHeroesService;
+
+    @MockBean
+    VillainsService villainsService;
 
     private Hero superMan;
     @BeforeEach
