@@ -3,6 +3,7 @@ package com.galvanize.andromeda.herobook.integrationTests;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.galvanize.andromeda.herobook.models.Hero;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa;
@@ -28,6 +29,26 @@ public class GetIntegrationTest {
     @Autowired
     private ObjectMapper mapper;
 
+    Hero superMan;
+
+    @BeforeEach
+    public void setup(){
+        superMan = new Hero();
+        superMan.setImage("URL");
+        superMan.setRealName("Clark Kent");
+        superMan.setHeroName("Super Man");
+        superMan.setHeight(75);
+        superMan.setWeight(225);
+        superMan.setSpecialPower("Powers of flight, superhuman strength, x-ray vision, heat vision, cold breath, super-speed, enhanced hearing, and nigh-invulnerability.");
+        superMan.setIntelligence("Genius");
+        superMan.setStrength("2 Billion Tons");
+        superMan.setPower("Powers of flight, superhuman strength, x-ray vision, heat vision, cold breath, super-speed, enhanced hearing, and nigh-invulnerability.");
+        superMan.setSpeed("2000 Miles/sec");
+        superMan.setAgility("Superhuman Equilibrium");
+        superMan.setStory("Superman was born on the planet Krypton and was given the name Kal-El at birth. As a baby, his parents sent him to Earth in a small spaceship moments before Krypton was destroyed in a natural cataclysm. His ship landed in the American countryside, near the fictional town of Smallville.");
+        superMan.setDescription("Superman's powers include incredible strength, the ability to fly. X-ray vision, super speed, invulnerability to most attacks, super hearing, and super breath. He is nearly unstoppable. However, Superman does have one weakness, Kryptonite.");
+    }
+
     @Test
     public void getHeroes() throws Exception {
         Hero superMan = new Hero();
@@ -49,6 +70,7 @@ public class GetIntegrationTest {
                 .andExpect(status().isCreated());
 
         mockMvc.perform(get("/herobooks/heroes"))
+
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").exists())
                 .andExpect(jsonPath("$.length()").value(2))
@@ -61,8 +83,6 @@ public class GetIntegrationTest {
 
     @Test
     public void getHeroByNameTest() throws Exception {
-        Hero superMan = new Hero();
-        superMan.setHeroName("Super Man");
 
         mockMvc.perform(post("/herobooks/heroes")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -75,6 +95,18 @@ public class GetIntegrationTest {
                 .andExpect(jsonPath("$").exists())
                 .andExpect(jsonPath("$.id").exists())
                 .andExpect(jsonPath("$.heroName").value(superMan.getHeroName()))
+                .andExpect(jsonPath("$.image").value(superMan.getImage()))
+                .andExpect(jsonPath("$.realName").value(superMan.getRealName()))
+                .andExpect(jsonPath("$.height").value(superMan.getHeight()))
+                .andExpect(jsonPath("$.weight").value(superMan.getWeight()))
+                .andExpect(jsonPath("$.specialPower").value(superMan.getSpecialPower()))
+                .andExpect(jsonPath("$.intelligence").value(superMan.getIntelligence()))
+                .andExpect(jsonPath("$.strength").value(superMan.getStrength()))
+                .andExpect(jsonPath("$.power").value(superMan.getPower()))
+                .andExpect(jsonPath("$.speed").value(superMan.getSpeed()))
+                .andExpect(jsonPath("$.agility").value(superMan.getAgility()))
+                .andExpect(jsonPath("$.description").value(superMan.getDescription()))
+                .andExpect(jsonPath("$.story").value(superMan.getStory()))
         ;
 
     }

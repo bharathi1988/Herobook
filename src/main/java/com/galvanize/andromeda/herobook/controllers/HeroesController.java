@@ -29,14 +29,12 @@ public class HeroesController {
     @GetMapping("/herobooks/heroes/{heroName}")
     public ResponseEntity<Object> getHeroByName(@PathVariable String heroName) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-
-        // create a JSON object
         ObjectNode incorrectHero = mapper.createObjectNode();
         incorrectHero.put("status", "Hero does not exist");
-
         String incorrectHeroJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(incorrectHero);
 
         Optional<Hero> heroOptional = heroesService.findHeroByName(heroName);
+
         if(heroOptional.isPresent())
             return new ResponseEntity<>(heroOptional.get(), HttpStatus.OK);
         else
