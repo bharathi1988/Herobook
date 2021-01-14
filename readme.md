@@ -92,5 +92,64 @@ Response:
 {
     "id" : "AAAC",
     "hero-name" : "Spider Man"
+    ...
+}
+````
+
+### **Villains**
+GC publishing wants to add a feature for users to learn all about their favorite villains!
+
+#### **Stories and Acceptance Criteria**
+As a visitor, I can view all the villains.
+````
+When I view all the villains
+Then I can see names of all villains
+````
+
+As a visitor, I can see information about any individual hero so that I can see their stats.
+
+````
+Rule: Villains have an arch rival, image, real name, hero name, height, weight, special power, intelligence, strength, power, speed, agility, description, and story.
+
+Given I have the name of a villain
+When I retreive the villain
+Then I can view all the details for that villain
+
+Given I have an incorrect villain name
+When I retreive details for that villain
+Then I receive a message that it doesn't exist
+````
+
+
+### **Technical Specification**
+
+| URI | Method | Description |
+|-----|--------|-------------|
+|/herobooks/villains|GET |Get all the Names of the Villains. |
+|/herobooks/villain/{villain-name}|GET|Get all the details for that Villain. |
+
+### **Sample Request and Response**
+
+GET /herobooks/villains
+````
+[
+    {
+        "id" : "BBBA",
+       "hero-name" : "Joker" 
+    },
+    {
+        "id": "BBBB",
+        "hero-name": "Cat Woman"
+    }
+]
+````
+
+GET /herobooks/villain/Joker
+````
+{
+   "id" : "BBBA",
+   "hero-name" : "Joker" 
+   ...
+   
 }
 ````
