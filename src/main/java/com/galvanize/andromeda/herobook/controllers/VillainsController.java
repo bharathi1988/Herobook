@@ -19,4 +19,9 @@ public class VillainsController {
     public List<Villain> getAllVillains() {
         return villainsService.findAll();
     }
+
+    @GetMapping("/herobooks/villains/{villainName}")
+    public Villain getVillainByName() {
+        return villainsService.findByVillainName();
+    }
 }

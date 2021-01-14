@@ -3,6 +3,7 @@ package com.galvanize.andromeda.herobook.unittests.controllers;
 import com.galvanize.andromeda.herobook.models.Villain;
 import com.galvanize.andromeda.herobook.services.HeroesService;
 import com.galvanize.andromeda.herobook.services.VillainsService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -29,16 +30,27 @@ public class VillainsControllerTests {
     @MockBean
     VillainsService mockVillainsService;
 
-    @Test
-    public void getAllVillainsTest() throws Exception {
+    private List<Villain> villains;
+    private Villain joker;
+    private Villain catWoman;
 
-        Villain joker = new Villain();
-        joker.setVillainName("Joker");
-        Villain catWoman = new Villain();
-        catWoman.setVillainName("Cat Woman");
-        List<Villain> villains = new ArrayList<>();
+    @BeforeEach
+    public void setUp() {
+        joker = CreateVillain("Joker");
+        catWoman = CreateVillain("Cat Woman");
+        villains = new ArrayList<>();
         villains.add(joker);
         villains.add(catWoman);
+    }
+
+    private Villain CreateVillain(String villainName) {
+        Villain villain = new Villain();
+        villain.setVillainName(villainName);
+        return villain;
+    }
+
+    @Test
+    public void getAllVillainsTest() throws Exception {
 
         when(mockVillainsService.findAll()).thenReturn(villains);
 
@@ -48,6 +60,17 @@ public class VillainsControllerTests {
             .andExpect(jsonPath("$.length()").value(2))
                 .andExpect(jsonPath("$.[0].villainName").value("Joker"))
                 .andExpect(jsonPath("$.[1].villainName").value("Cat Woman"));
+    }
+
+    @Test
+    public void getVillainByName() throws Exception {
+
+        when(mockVillainsService.findByVillainName()).thenReturn(joker);
+
+        mockMvc.perform(get("/herobooks/villains/Joker"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").exists())
+                .andExpect(jsonPath("$.villainName").value("Joker"));
     }
 
 }

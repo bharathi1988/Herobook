@@ -11,4 +11,8 @@ public class VillainsService {
     public List<Villain> findAll() {
         return null;
     }
+
+    public Villain findByVillainName() {
+        return null;
+    }
 }
