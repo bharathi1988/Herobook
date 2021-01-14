@@ -90,9 +90,20 @@ Request:
 ````
 Response:
 {
-    "id" : "AAAC",
-    "hero-name" : "Spider Man"
-    ...
+    "id" : "AAAA",
+    "heroName" : "Super Man"
+    "image" : "URL"
+    "realName": "Clark Kent"
+    "height": 75
+    "weight": 225
+    "specialPower": "Powers of flight, superhuman strength, x-ray vision, heat vision, cold breath, super-speed, enhanced hearing, and nigh-invulnerability."
+    "intelligence": "Genius"
+    "strength": "2 Billion Tons"
+    "power": "Powers of flight, superhuman strength, x-ray vision, heat vision, cold breath, super-speed, enhanced hearing, and nigh-invulnerability."
+    "speed": "2000 Miles/sec"
+    "agility": "Superhuman Equilibrium"
+    "description": "Superman's powers include incredible strength, the ability to fly. X-ray vision, super speed, invulnerability to most attacks, super hearing, and super breath. He is nearly unstoppable. However, Superman does have one weakness, Kryptonite."
+    "story": "Superman was born on the planet Krypton and was given the name Kal-El at birth. As a baby, his parents sent him to Earth in a small spaceship moments before Krypton was destroyed in a natural cataclysm. His ship landed in the American countryside, near the fictional town of Smallville."
 }
 ````
 
