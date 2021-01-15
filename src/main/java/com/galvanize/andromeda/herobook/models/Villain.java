@@ -10,14 +10,17 @@ public class Villain {
 
     private String archRival;
 
+    @Column(name="VILLAINNAME")
     private String villainName;
 
     private String image;
 
     private String realName;
 
+    @Column(name="HEIGHT")
     private int height;
 
+    @Column(name="WEIGHT")
     private int weight;
 
     private String specialPower;
