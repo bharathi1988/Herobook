@@ -111,4 +111,14 @@ public class GetIntegrationTest {
 
     }
 
+    @Test
+    public void getVillains() throws Exception {
+        mockMvc.perform(get("/herobooks/villains"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").exists())
+                .andExpect(jsonPath("$.length()").value(1))
+
+        ;
+    }
+
 }

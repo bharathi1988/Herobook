@@ -1,9 +1,13 @@
 package com.galvanize.andromeda.herobook.models;
 
-import javax.persistence.Column;
-import javax.persistence.Lob;
+import javax.persistence.*;
 
+@Entity
+@Table(name= "villain")
 public class Villain {
+    @Id
+    private String id;
+
     private String archRival;
 
     private String villainName;
