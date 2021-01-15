@@ -12,7 +12,9 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -65,12 +67,28 @@ public class VillainsControllerTests {
     @Test
     public void getVillainByName() throws Exception {
 
-        when(mockVillainsService.findByVillainName()).thenReturn(joker);
+        Optional<Villain> optionalVillain = Optional.of(joker);
+        when(mockVillainsService.findByVillainName("Joker")).thenReturn(optionalVillain);
 
         mockMvc.perform(get("/herobooks/villains/Joker"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").exists())
                 .andExpect(jsonPath("$.villainName").value("Joker"));
+
+        verify(mockVillainsService).findByVillainName("Joker");
+    }
+
+    @Test
+    public void getVillainByIncorrectName() throws Exception {
+
+        Optional<Villain> optionalVillain = Optional.ofNullable(null);
+        when(mockVillainsService.findByVillainName("Deathstroke")).thenReturn(optionalVillain);
+
+        mockMvc.perform(get("/herobooks/villains/Deathstroke"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").exists())
+                .andExpect(jsonPath("$.status").value("Villain does not exist"));
+
     }
 
 }

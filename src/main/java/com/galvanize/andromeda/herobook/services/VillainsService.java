@@ -4,6 +4,7 @@ import com.galvanize.andromeda.herobook.models.Villain;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VillainsService {
@@ -12,7 +13,7 @@ public class VillainsService {
         return null;
     }
 
-    public Villain findByVillainName() {
+    public Optional<Villain> findByVillainName(String villainName) {
         return null;
     }
 }
