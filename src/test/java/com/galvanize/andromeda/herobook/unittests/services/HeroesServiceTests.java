@@ -77,15 +77,7 @@ public class HeroesServiceTests {
         Optional<Hero> result = heroesService.findHeroByName("Super Man");
         assertEquals(expectedSuperMan, result.get());
 
-        Optional<Hero> nullOptionalHero = Optional.ofNullable(null);
-
-        assertTrue(!nullOptionalHero.isPresent());
-
         verify(mockHeroesRepository).findByHeroName("Super Man");
-
-
-
-
 
     }
 
